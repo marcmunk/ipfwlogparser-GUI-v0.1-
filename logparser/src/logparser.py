@@ -31,7 +31,12 @@ def loadfile():
     f = open(filename, 'r')  
     for line in (f):
         list_all.insert(i, line)
+        i += 1
     f.close
+    tkinterLabel = Label(root)
+    tkinterLabel["text"] = "Number of lines loaded are", i
+    tkinterLabel.pack() 
+    
     
 #Shows all entries in list_all 
 def showall():
