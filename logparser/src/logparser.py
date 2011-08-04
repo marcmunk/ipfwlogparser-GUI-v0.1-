@@ -134,6 +134,7 @@ def showallAllow():
 #Filters out Denied connections
 def showallDeny():
     i = 0
+    proto = ""
     len_all = len(list_all)
     while len_all == 0:
         tkinterLabel = Label(root)
@@ -141,15 +142,16 @@ def showallDeny():
         tkinterLabel.pack()
         break
     if len_all != 0:
+        while i <= len_all:
             input = list_all[i]
-            Deny = input.split()
-            Deny = str(Deny)
-            output = Deny.find('Deny')
-    if output != -1:
-            Deny = list_all[i]
-            tkinterLabel = Label(root)
-            tkinterLabel["text"] = Deny
-            tkinterLabel.pack()
+            deny = input.split()
+            deny = str(deny)
+            output = deny.find('Deny')
+            if output != -1:
+                deny = list_all[i]
+                tkinterLabel = Label(root)
+                tkinterLabel["text"] = deny
+                tkinterLabel.pack()
             i += 1
             if i == len_all:
                 break
@@ -158,19 +160,24 @@ def showallDeny():
 #Export Show all Lines
 def exportall():
     i = 0
+    filename = filedialog.asksaveasfilename()
     len_all = len(list_all)
     while len_all == 0:
         tkinterLabel["text"] = "please open log file"
         tkinterLabel.pack()
         break
     while len_all != 0:
-        filename = filedialog.asksaveasfilename()
         f = open (filename, 'a')
         output = list_all[i]
         output = str(output)
         f.write (output)
+        f.close
         i += 1
         if i == len_all:
+            tkinterLabel = Label(root)
+            tkinterLabel["text"] = "Number of lines written to export file are:", i
+            tkinterLabel.pack()
+            i += 1
             break
 
 #GUI 
