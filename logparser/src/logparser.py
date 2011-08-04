@@ -37,7 +37,7 @@ def loadfile():
     tkinterLabel["text"] = "Number of lines loaded are", i
     tkinterLabel.pack() 
     
-    
+#Analyse menu functions
 #Shows all entries in list_all 
 def showall():
     i = 0
@@ -141,19 +141,37 @@ def showallDeny():
         tkinterLabel.pack()
         break
     if len_all != 0:
-        while i <= len_all:
             input = list_all[i]
             Deny = input.split()
             Deny = str(Deny)
             output = Deny.find('Deny')
-            if output != -1:
-                Deny = list_all[i]
-                tkinterLabel = Label(root)
-                tkinterLabel["text"] = Deny
-                tkinterLabel.pack()
+    if output != -1:
+            Deny = list_all[i]
+            tkinterLabel = Label(root)
+            tkinterLabel["text"] = Deny
+            tkinterLabel.pack()
             i += 1
             if i == len_all:
                 break
+
+#Export menu functions
+#Export Show all Lines
+def exportall():
+    i = 0
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel["text"] = "please open log file"
+        tkinterLabel.pack()
+        break
+    while len_all != 0:
+        filename = filedialog.asksaveasfilename()
+        f = open (filename, 'a')
+        output = list_all[i]
+        output = str(output)
+        f.write (output)
+        i += 1
+        if i == len_all:
+            break
 
 #GUI 
 #Window size and name
@@ -186,7 +204,7 @@ analysemenu.add_command(label="Show all Denied connections", command=showallDeny
 
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
-#exportemenu.add_command(label="Export denied lines", command=exportdenied)
+exportemenu.add_command(label="Export all lines", command=exportall)
 
 
 helpmenu = Menu(menu)
