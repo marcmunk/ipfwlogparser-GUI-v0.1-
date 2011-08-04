@@ -106,6 +106,54 @@ def showallUDP():
             i += 1
             if i == len_all:
                 break
+            
+#Filters out Allowed connections
+def showallAllow():
+    i = 0
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel = Label(root)
+        tkinterLabel["text"] = "Please load log file"
+        tkinterLabel.pack()
+        break
+    if len_all != 0:
+        while i <= len_all:
+            input = list_all[i]
+            Allow = input.split()
+            Allow = str(Allow)
+            output = Allow.find('Allow')
+            if output != -1:
+                Deny = list_all[i]
+                tkinterLabel = Label(root)
+                tkinterLabel["text"] = Allow
+                tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
+
+#Filters out Denied connections
+def showallDeny():
+    i = 0
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel = Label(root)
+        tkinterLabel["text"] = "Please load log file"
+        tkinterLabel.pack()
+        break
+    if len_all != 0:
+        while i <= len_all:
+            input = list_all[i]
+            Deny = input.split()
+            Deny = str(Deny)
+            output = Deny.find('Deny')
+            if output != -1:
+                Deny = list_all[i]
+                tkinterLabel = Label(root)
+                tkinterLabel["text"] = Deny
+                tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
 
 #GUI 
 #Window size and name
@@ -133,6 +181,8 @@ menu.add_cascade(label="Analyse", menu=analysemenu)
 analysemenu.add_command(label="Show all TCP connections", command=showallTCP)
 analysemenu.add_command(label="Show all UDP connections", command=showallUDP)
 analysemenu.add_separator()
+analysemenu.add_command(label="Show all Allowed connections", command=showallAllow)
+analysemenu.add_command(label="Show all Denied connections", command=showallDeny)
 
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
