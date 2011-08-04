@@ -158,7 +158,7 @@ def showallDeny():
 
 #Export menu functions
 #Export Show all Lines
-def exportall():
+def exportAll():
     i = 0
     filename = filedialog.asksaveasfilename()
     len_all = len(list_all)
@@ -176,6 +176,33 @@ def exportall():
         if i == len_all:
             tkinterLabel = Label(root)
             tkinterLabel["text"] = "Number of lines written to export file are:", i
+            tkinterLabel.pack()
+            i += 1
+            break
+
+def exportAllow():
+    i = 0
+    w = 0
+    filename = filedialog.asksaveasfilename()
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel["text"] = "please open log file"
+        tkinterLabel.pack()
+        break
+    while len_all != 0:
+        f = open (filename, 'a')
+        allow = list_all[i]
+        allow = str(allow)
+        output = allow.find('Allow')
+        if output != -1:
+            output = list_all[i]
+            f.write (output)
+            w += 1
+            f.close
+            i += 1
+        if i == len_all:
+            tkinterLabel = Label(root)
+            tkinterLabel["text"] = "Number of lines written to export file are:", w
             tkinterLabel.pack()
             i += 1
             break
@@ -211,7 +238,8 @@ analysemenu.add_command(label="Show all Denied connections", command=showallDeny
 
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
-exportemenu.add_command(label="Export all lines", command=exportall)
+exportemenu.add_command(label="Export all lines", command=exportAll)
+exportemenu.add_command(label="Export all lines", command=exportAllow)
 
 
 helpmenu = Menu(menu)
