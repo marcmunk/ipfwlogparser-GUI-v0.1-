@@ -207,6 +207,32 @@ def exportAllow():
             i += 1
             break
 
+def exportDeny():
+    i = 0
+    w = 0
+    filename = filedialog.asksaveasfilename()
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel["text"] = "please open log file"
+        tkinterLabel.pack()
+        break
+    while len_all != 0:
+        f = open (filename, 'a')
+        deny = list_all[i]
+        deny = str(deny)
+        output = deny.find('Deny')
+        if output != -1:
+            output = list_all[i]
+            f.write (output)
+            w += 1
+            f.close
+            i += 1
+        if i == len_all:
+            tkinterLabel = Label(root)
+            tkinterLabel["text"] = "Number of lines written to export file are:", w
+            tkinterLabel.pack()
+            break
+
 #GUI 
 #Window size and name
 class App(Frame):
@@ -239,8 +265,8 @@ analysemenu.add_command(label="Show all Denied connections", command=showallDeny
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
 exportemenu.add_command(label="Export all lines", command=exportAll)
-exportemenu.add_command(label="Export all lines", command=exportAllow)
-
+exportemenu.add_command(label="Export all Allowed lines", command=exportAllow)
+exportemenu.add_command(label="Export all Denied lines", command=exportDeny)
 
 helpmenu = Menu(menu)
 menu.add_cascade(label="Help", menu=helpmenu)
