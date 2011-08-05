@@ -123,7 +123,7 @@ def showallAllow():
             Allow = str(Allow)
             output = Allow.find('Allow')
             if output != -1:
-                Deny = list_all[i]
+                Allow = list_all[i]
                 tkinterLabel = Label(root)
                 tkinterLabel["text"] = Allow
                 tkinterLabel.pack()
