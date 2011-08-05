@@ -180,6 +180,7 @@ def exportAll():
             i += 1
             break
 
+#Export all Allowed lines
 def exportAllow():
     i = 0
     w = 0
@@ -189,24 +190,22 @@ def exportAllow():
         tkinterLabel["text"] = "please open log file"
         tkinterLabel.pack()
         break
-    while len_all != 0:
-        f = open (filename, 'a')
-        allow = list_all[i]
-        allow = str(allow)
-        output = allow.find('Allow')
-        if output != -1:
-            output = list_all[i]
-            f.write (output)
-            w += 1
-            f.close
-            i += 1
-        if i == len_all:
-            tkinterLabel = Label(root)
-            tkinterLabel["text"] = "Number of lines written to export file are:", w
-            tkinterLabel.pack()
-            i += 1
-            break
+    if len_all != 0:
+        while i <= len_all:
+            f = open (filename, 'a')
+            allow = list_all[i]
+            allow = str(allow)
+            output = allow.find('Allow')  
+            if output != -1:
+                output = list_all[i]
+                f.write (output)
+                w += 1
+                f.close
+                i += 1
+                if i == len_all:
+                    break
 
+#Export all denied lines
 def exportDeny():
     i = 0
     w = 0
