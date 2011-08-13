@@ -6,7 +6,7 @@ Created on 18/03/2011
 from tkinter import filedialog
 from tkinter import *
 from tkinter import ttk
-import smtplib
+#import smtplib
 from datetime import date
 
 root = Tk()
@@ -191,48 +191,40 @@ def exportAllow():
         break
     if len_all != 0:
         while i <= len_all:
-            f = open (filename, 'a')
-            allow = list_all[i]
-            len_test = len(list_test)
-            allow = str(allow)
-            output = allow.find('Allow') 
-            print(i, list_all[i]) 
+            input = list_all[i]
+            Allow = input.split()
+            Allow = str(Allow)
+            output = Allow.find('Allow')
             if output != -1:
-                list_test.append(list_all[i])
-                len_test = len(list_test)
-                test = list_test[i]
-                f.write (test)
-                i += 1
-                if i == len_test:
-                    break
-                
+                Allow = list_all[i]
+                f = open (filename, 'a')
+                f.write (Allow)
+            i += 1
+            if i == len_all:
+                break
 
 #Export all denied lines
 def exportDeny():
     i = 0
-    w = 0
     filename = filedialog.asksaveasfilename()
     len_all = len(list_all)
     while len_all == 0:
         tkinterLabel["text"] = "please open log file"
         tkinterLabel.pack()
         break
-    while len_all != 0:
-        f = open (filename, 'a')
-        deny = list_all[i]
-        deny = str(deny)
-        output = deny.find('Deny')
-        if output != -1:
-            output = list_all[i]
-            f.write (output)
-            w += 1
-            f.close
+    if len_all != 0:
+        while i <= len_all:
+            input = list_all[i]
+            Deny = input.split()
+            Deny = str(Deny)
+            output = Deny.find('Deny')
+            if output != -1:
+                Deny = list_all[i]
+                f = open (filename, 'a')
+                f.write (Deny)
             i += 1
-        if i == len_all:
-            tkinterLabel = Label(root)
-            tkinterLabel["text"] = "Number of lines written to export file are:", w
-            tkinterLabel.pack()
-            break
+            if i == len_all:
+                break
 
 #GUI 
 #Window size and name
