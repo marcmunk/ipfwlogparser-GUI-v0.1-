@@ -155,7 +155,30 @@ def showallDeny():
             i += 1
             if i == len_all:
                 break
-
+            
+def showallIngress():
+    i = 0
+    ingress = ""
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel = Label(root)
+        tkinterLabel["text"] = "Please load log file"
+        tkinterLabel.pack()
+        break
+    if len_all != 0:
+        while i <= len_all:
+            input = list_all[i]
+            ingress = input.split()
+            ingress = str(ingress)
+            output = ingress.find('in')
+            if output != -1:
+                ingress = list_all[i]
+                tkinterLabel = Label(root)
+                tkinterLabel["text"] = ingress
+                tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
 #Export menu functions
 #Export Show all Lines
 def exportAll():
@@ -254,6 +277,7 @@ analysemenu.add_command(label="Show all UDP connections", command=showallUDP)
 analysemenu.add_separator()
 analysemenu.add_command(label="Show all Allowed connections", command=showallAllow)
 analysemenu.add_command(label="Show all Denied connections", command=showallDeny)
+analysemenu.add_command(label="Show all Ingress connections", command=showallIngress)
 
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
