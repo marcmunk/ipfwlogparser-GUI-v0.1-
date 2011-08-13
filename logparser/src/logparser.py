@@ -183,7 +183,7 @@ def exportAll():
 #Export all Allowed lines
 def exportAllow():
     i = 0
-    #filename = filedialog.asksaveasfilename()
+    filename = filedialog.asksaveasfilename()
     len_all = len(list_all)
     while len_all == 0:
         tkinterLabel["text"] = "please open log file"
@@ -191,7 +191,7 @@ def exportAllow():
         break
     if len_all != 0:
         while i <= len_all:
-            # f = open (filename, 'a')
+            f = open (filename, 'a')
             allow = list_all[i]
             len_test = len(list_test)
             allow = str(allow)
@@ -201,7 +201,7 @@ def exportAllow():
                 list_test.append(list_all[i])
                 len_test = len(list_test)
                 test = list_test[i]
-                print(len_test, test)
+                f.write (test)
                 i += 1
                 if i == len_test:
                     break
