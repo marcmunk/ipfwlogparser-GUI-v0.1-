@@ -298,6 +298,31 @@ def exportEgress():
             if i == len_all:
                 break
 
+#export all Ingress connections
+def exportIngress():
+    i = 0
+    filename = filedialog.asksaveasfilename()
+    ingress = ""
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel = Label(root)
+        tkinterLabel["text"] = "Please load log file"
+        tkinterLabel.pack()
+        break
+    if len_all != 0:
+        while i <= len_all:
+            input = list_all[i]
+            ingress = input.split()
+            ingress = str(ingress)
+            output = ingress.find('in')
+            if output != -1:
+                ingress = list_all[i]
+                f = open (filename, 'a')
+                f.write (ingress)
+            i += 1
+            if i == len_all:
+                break
+
 #GUI 
 #Window size and name
 class App(Frame):
@@ -335,6 +360,7 @@ exportemenu.add_command(label="Export all lines", command=exportAll)
 exportemenu.add_command(label="Export all Allowed lines", command=exportAllow)
 exportemenu.add_command(label="Export all Denied lines", command=exportDeny)
 exportemenu.add_command(label="Export all Egress lines", command=exportEgress)
+exportemenu.add_command(label="Export all Ingress lines", command=exportIngress)
 
 helpmenu = Menu(menu)
 menu.add_cascade(label="Help", menu=helpmenu)
