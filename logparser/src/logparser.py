@@ -200,6 +200,8 @@ def showallEgress():
             i += 1
             if i == len_all:
                 break
+
+#Scans for port scan on incoming connections
 def incomingPORTSCAN():
     i = 0
     len_all = len(list_all)
@@ -210,14 +212,19 @@ def incomingPORTSCAN():
         break
     if len_all != 0:
         while i <= len_all:
-            test = list_all[i]
-            test = test.split()
-            test = test[10]
-            test = str(test)
-            test = test.split( ':' )
-            test = test[1:]
-            test = ''.join(filter(lambda x: x.isdigit(),test))
-            print(test)
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('in')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                print(test)
             i += 1
             if i == len_all:
                 break
