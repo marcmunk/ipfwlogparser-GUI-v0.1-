@@ -15,7 +15,8 @@ date = date.today()
 
 #lists
 list_all = []
-list_test = []
+list_ports = []
+
 #About functions
 def about():
     tkinterLabel["text"] = "Written by Marc Munk - marc@pungloppen.dk"
@@ -224,11 +225,28 @@ def incomingPORTSCAN():
                 test = test.split( ':' )
                 test = test[1:]
                 test = ''.join(filter(lambda x: x.isdigit(),test))
-                print(test)
+                test = int(test)
+                list_ports.insert(i, test)
             i += 1
             if i == len_all:
+                portscan()
                 break
             
+#Scriptwide function. Can be used for looking for port scans
+def portscan():
+    j = 0
+    port1 = 0
+    port2 = 0
+    len_ports = len(list_ports)
+    while  j <= len_ports:
+        port1 = len_ports[j]
+        o = j + 1
+        while o <= len_ports:
+            port2 = len_ports[2]
+            test = port1 - port2
+            if test == -1:
+                print("Portscan detected")
+                
 #Export menu functions
 #Export Show all Lines
 def exportAll():
