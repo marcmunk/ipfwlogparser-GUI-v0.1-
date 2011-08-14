@@ -21,10 +21,6 @@ def about():
     tkinterLabel["text"] = "Written by Marc Munk - marc@pungloppen.dk"
     tkinterLabel.pack()
 
-def version():
-    tkinterLabel["text"] = "IPFW log parser version 0.5"
-    tkinterLabel.pack()
-
 def loadfile():
     i = 0
     filename = filedialog.askopenfilename()
@@ -390,6 +386,5 @@ exportemenu.add_command(label="Export all Ingress lines", command=exportIngress)
 helpmenu = Menu(menu)
 menu.add_cascade(label="Help", menu=helpmenu)
 helpmenu.add_command(label="About", command=about)
-helpmenu.add_command(label="Version", command=version)
 
 mainloop()
