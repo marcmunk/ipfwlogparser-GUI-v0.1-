@@ -204,6 +204,28 @@ def showallEgress():
             i += 1
             if i == len_all:
                 break
+def incomingPORTSCAN():
+    i = 0
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel = Label(root)
+        tkinterLabel["text"] = "Please load log file"
+        tkinterLabel.pack()
+        break
+    if len_all != 0:
+        while i <= len_all:
+            test = list_all[i]
+            test = test.split()
+            test = test[10]
+            test = str(test)
+            test = test.split( ':' )
+            test = test[1:]
+            test = ''.join(filter(lambda x: x.isdigit(),test))
+            print(test)
+            i += 1
+            if i == len_all:
+                break
+            
 #Export menu functions
 #Export Show all Lines
 def exportAll():
@@ -354,6 +376,8 @@ analysemenu.add_command(label="Show all Allowed connections", command=showallAll
 analysemenu.add_command(label="Show all Denied connections", command=showallDeny)
 analysemenu.add_command(label="Show all Ingress connections", command=showallIngress)
 analysemenu.add_command(label="Show all Egress connections", command=showallEgress)
+analysemenu.add_separator()
+analysemenu.add_command(label="Scan for incoming port scan", command=incomingPORTSCAN)
 
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
