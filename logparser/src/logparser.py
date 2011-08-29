@@ -178,87 +178,6 @@ def showallIngress():
             i += 1
             if i == len_all:
                 break
-#show all engress connections
-def showallEgress():
-    i = 0
-    egress = ""
-    len_all = len(list_all)
-    while len_all == 0:
-        tkinterLabel = Label(root)
-        tkinterLabel["text"] = "Please load log file"
-        tkinterLabel.pack()
-        break
-    if len_all != 0:
-        while i <= len_all:
-            input = list_all[i]
-            egress = input.split()
-            egress = str(egress)
-            output = egress.find('out')
-            if output != -1:
-                egress = list_all[i]
-                tkinterLabel = Label(root)
-                tkinterLabel["text"] = egress
-                tkinterLabel.pack()
-            i += 1
-            if i == len_all:
-                break
-
-#Script wide function. Used for finding port numbers on incoming trafic
-def incomingPORTS():
-    i = 0
-    len_all = len(list_all)
-    while len_all == 0:
-        tkinterLabel = Label(root)
-        tkinterLabel["text"] = "Please load log file"
-        tkinterLabel.pack()
-        break
-    if len_all != 0:
-        while i <= len_all:
-            incoming = list_all[i]
-            port = incoming.split()
-            port = str(port)
-            port = port.find('in')
-            if port != -1:
-                test = list_all[i]
-                test = test.split()
-                test = test[10]
-                test = str(test)
-                test = test.split( ':' )
-                test = test[1:]
-                test = ''.join(filter(lambda x: x.isdigit(),test))
-                test = int(test)
-                list_incomingports.insert(i, test)
-            i += 1
-            if i == len_all:
-                break
-#Script wide function. Used for finding port numbers on incoming trafic
-def outgoingPORTS():
-    i = 0
-    len_all = len(list_all)
-    while len_all == 0:
-        tkinterLabel = Label(root)
-        tkinterLabel["text"] = "Please load log file"
-        tkinterLabel.pack()
-        break
-    if len_all != 0:
-        while i <= len_all:
-            incoming = list_all[i]
-            port = incoming.split()
-            port = str(port)
-            port = port.find('in')
-            if port != -1:
-                test = list_all[i]
-                test = test.split()
-                test = test[10]
-                test = str(test)
-                test = test.split( ':' )
-                test = test[1:]
-                test = ''.join(filter(lambda x: x.isdigit(),test))
-                test = int(test)
-                list_outgoingports.insert(i, test)
-            i += 1
-            if i == len_all:
-                break
 
 #Export menu functions
 #Export Show all Lines
@@ -376,6 +295,89 @@ def exportIngress():
                 ingress = list_all[i]
                 f = open (filename, 'a')
                 f.write (ingress)
+            i += 1
+            if i == len_all:
+                break
+
+#Script wide functions
+#show all engress connections
+def showallEgress():
+    i = 0
+    egress = ""
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel = Label(root)
+        tkinterLabel["text"] = "Please load log file"
+        tkinterLabel.pack()
+        break
+    if len_all != 0:
+        while i <= len_all:
+            input = list_all[i]
+            egress = input.split()
+            egress = str(egress)
+            output = egress.find('out')
+            if output != -1:
+                egress = list_all[i]
+                tkinterLabel = Label(root)
+                tkinterLabel["text"] = egress
+                tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
+
+#Used for finding port numbers on incoming trafic
+def incomingPORTS():
+    i = 0
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel = Label(root)
+        tkinterLabel["text"] = "Please load log file"
+        tkinterLabel.pack()
+        break
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('in')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                list_incomingports.insert(i, test)
+            i += 1
+            if i == len_all:
+                break
+#Used for finding port numbers on incoming trafic
+def outgoingPORTS():
+    i = 0
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel = Label(root)
+        tkinterLabel["text"] = "Please load log file"
+        tkinterLabel.pack()
+        break
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('in')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                list_outgoingports.insert(i, test)
             i += 1
             if i == len_all:
                 break
