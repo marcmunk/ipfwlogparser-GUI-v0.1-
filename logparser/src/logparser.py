@@ -15,8 +15,8 @@ date = date.today()
 
 #lists
 list_all = []
-list_incomingports = []
-list_outgoingports = []
+list_tcpports = []
+list_udpports = []
 
 #About functions
 def about():
@@ -131,7 +131,7 @@ def showallAllow():
             if i == len_all:
                 break
 
-#Filters out Denied connections
+#Show all Denied connections
 def showallDeny():
     i = 0
     deny = ""
@@ -181,16 +181,37 @@ def showallIngress():
             if i == len_all:
                 break
 
+#show all engress connections
+def showallEgress():
+    i = 0
+    egress = ""
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel = Label(root)
+        tkinterLabel["text"] = "Please load log file"
+        tkinterLabel.pack()
+        break
+    if len_all != 0:
+        while i <= len_all:
+            input = list_all[i]
+            egress = input.split()
+            egress = str(egress)
+            output = egress.find('out')
+            if output != -1:
+                egress = list_all[i]
+                tkinterLabel = Label(root)
+                tkinterLabel["text"] = egress
+                tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
+
 #Export menu functions
 #Export Show all Lines
 def exportAll():
     i = 0
     filename = filedialog.asksaveasfilename()
     len_all = len(list_all)
-    while len_all == 0:
-        tkinterLabel["text"] = "please open log file"
-        tkinterLabel.pack()
-        break
     while len_all != 0:
         f = open (filename, 'a')
         output = list_all[i]
@@ -298,32 +319,7 @@ def exportIngress():
                 break
 
 #Script wide functions
-#show all engress connections
-def showallEgress():
-    i = 0
-    egress = ""
-    len_all = len(list_all)
-    while len_all == 0:
-        tkinterLabel = Label(root)
-        tkinterLabel["text"] = "Please load log file"
-        tkinterLabel.pack()
-        break
-    if len_all != 0:
-        while i <= len_all:
-            input = list_all[i]
-            egress = input.split()
-            egress = str(egress)
-            output = egress.find('out')
-            if output != -1:
-                egress = list_all[i]
-                tkinterLabel = Label(root)
-                tkinterLabel["text"] = egress
-                tkinterLabel.pack()
-            i += 1
-            if i == len_all:
-                break
-
-#Used for finding port numbers on incoming trafic
+#Used for finding all tcp connections
 def tcpPORTS():
     i = 0
     len_all = len(list_all)
@@ -347,10 +343,11 @@ def tcpPORTS():
                 test = test[1:]
                 test = ''.join(filter(lambda x: x.isdigit(),test))
                 test = int(test)
-                list_incomingports.insert(i, test)
+                list_tcpports.insert(i, test)
             i += 1
             if i == len_all:
                 break
+
 #Used for finding port numbers on incoming trafic
 def udpPORTS():
     i = 0
@@ -375,7 +372,7 @@ def udpPORTS():
                 test = test[1:]
                 test = ''.join(filter(lambda x: x.isdigit(),test))
                 test = int(test)
-                list_outgoingports.insert(i, test)
+                list_udpports.insert(i, test)
             i += 1
             if i == len_all:
                 break
@@ -410,7 +407,6 @@ analysemenu.add_command(label="Show all Allowed connections", command=showallAll
 analysemenu.add_command(label="Show all Denied connections", command=showallDeny)
 analysemenu.add_command(label="Show all Ingress connections", command=showallIngress)
 analysemenu.add_command(label="Show all Egress connections", command=showallEgress)
-analysemenu.add_separator()
 
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
