@@ -15,7 +15,8 @@ date = date.today()
 
 #lists
 list_all = []
-list_ports = []
+list_incomingports = []
+list_outgoingports = []
 
 #About functions
 def about():
@@ -202,8 +203,8 @@ def showallEgress():
             if i == len_all:
                 break
 
-#Scans for port scan on incoming connections
-def incomingPORTSCAN():
+#Script wide function. Used for finding port numbers on incoming trafic
+def incomingPORTS():
     i = 0
     len_all = len(list_all)
     while len_all == 0:
@@ -226,27 +227,39 @@ def incomingPORTSCAN():
                 test = test[1:]
                 test = ''.join(filter(lambda x: x.isdigit(),test))
                 test = int(test)
-                list_ports.insert(i, test)
+                list_incomingports.insert(i, test)
             i += 1
             if i == len_all:
-                portscan()
                 break
-            
-#Scriptwide function. Can be used for looking for port scans
-def portscan():
-    j = 0
-    port1 = 0
-    port2 = 0
-    len_ports = len(list_ports)
-    while  j <= len_ports:
-        port1 = len_ports[j]
-        o = j + 1
-        while o <= len_ports:
-            port2 = len_ports[2]
-            test = port1 - port2
-            if test == -1:
-                print("Portscan detected")
-                
+#Script wide function. Used for finding port numbers on incoming trafic
+def outgoingPORTS():
+    i = 0
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel = Label(root)
+        tkinterLabel["text"] = "Please load log file"
+        tkinterLabel.pack()
+        break
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('in')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                list_outgoingports.insert(i, test)
+            i += 1
+            if i == len_all:
+                break
+
 #Export menu functions
 #Export Show all Lines
 def exportAll():
@@ -398,7 +411,6 @@ analysemenu.add_command(label="Show all Denied connections", command=showallDeny
 analysemenu.add_command(label="Show all Ingress connections", command=showallIngress)
 analysemenu.add_command(label="Show all Egress connections", command=showallEgress)
 analysemenu.add_separator()
-analysemenu.add_command(label="Scan for incoming port scan", command=incomingPORTSCAN)
 
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
