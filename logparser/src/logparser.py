@@ -23,6 +23,8 @@ def about():
     tkinterLabel["text"] = "Written by Marc Munk - marc@pungloppen.dk"
     tkinterLabel.pack()
 
+#File Menu functions
+#Loads log file to be worked with
 def loadfile():
     i = 0
     filename = filedialog.askopenfilename()
@@ -197,10 +199,6 @@ def exportAll():
         f.close
         i += 1
         if i == len_all:
-            tkinterLabel = Label(root)
-            tkinterLabel["text"] = "Number of lines written to export file are:", i
-            tkinterLabel.pack()
-            i += 1
             break
 
 #Export all Allowed lines
@@ -326,7 +324,7 @@ def showallEgress():
                 break
 
 #Used for finding port numbers on incoming trafic
-def incomingPORTS():
+def tcpPORTS():
     i = 0
     len_all = len(list_all)
     while len_all == 0:
@@ -339,7 +337,7 @@ def incomingPORTS():
             incoming = list_all[i]
             port = incoming.split()
             port = str(port)
-            port = port.find('in')
+            port = port.find('tcp')
             if port != -1:
                 test = list_all[i]
                 test = test.split()
@@ -354,7 +352,7 @@ def incomingPORTS():
             if i == len_all:
                 break
 #Used for finding port numbers on incoming trafic
-def outgoingPORTS():
+def udpPORTS():
     i = 0
     len_all = len(list_all)
     while len_all == 0:
@@ -367,7 +365,7 @@ def outgoingPORTS():
             incoming = list_all[i]
             port = incoming.split()
             port = str(port)
-            port = port.find('in')
+            port = port.find('udp')
             if port != -1:
                 test = list_all[i]
                 test = test.split()
