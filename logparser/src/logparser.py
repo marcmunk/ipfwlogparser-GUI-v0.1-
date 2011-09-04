@@ -206,6 +206,37 @@ def showallEgress():
             if i == len_all:
                 break
 
+#Show all incoming connections on port 80
+def showallWeb():
+    i = 0
+    len_all = len(list_all)
+    while len_all == 0:
+        tkinterLabel = Label(root)
+        tkinterLabel["text"] = "Please load log file"
+        tkinterLabel.pack()
+        break
+    if len_all != 0:
+        while i <= len_all:
+            input = list_all[i]
+            input = input.split()
+            input = str(input)
+            output = input.find('in')
+            if output != -1:
+                port = str(input)
+                port = list("port")
+                port = port[11:]
+                #port = port[:-2]
+                port = str(port)
+                print(port)
+                #port = port.split('')
+                #port = port[1:]
+                #tkinterLabel = Label(root)
+                #tkinterLabel["text"] = port
+                #tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
+
 #Export menu functions
 #Export Show all Lines
 def exportAll():
@@ -407,6 +438,7 @@ analysemenu.add_command(label="Show all Allowed connections", command=showallAll
 analysemenu.add_command(label="Show all Denied connections", command=showallDeny)
 analysemenu.add_command(label="Show all Ingress connections", command=showallIngress)
 analysemenu.add_command(label="Show all Egress connections", command=showallEgress)
+analysemenu.add_command(label="Show all incoming web connections connections", command=showallWeb)
 
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
