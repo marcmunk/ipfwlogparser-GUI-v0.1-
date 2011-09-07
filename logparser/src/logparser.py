@@ -60,7 +60,6 @@ def showall():
 #Filters out TCP connections
 def showallTCP():
     i = 0
-    proto = ""
     len_all = len(list_all)
     while len_all == 0:
         tkinterLabel = Label(root)
@@ -85,7 +84,6 @@ def showallTCP():
 #Filters out UDP connections
 def showallUDP():
     i = 0
-    proto = ""
     len_all = len(list_all)
     while len_all == 0:
         tkinterLabel = Label(root)
@@ -134,7 +132,6 @@ def showallAllow():
 #Show all Denied connections
 def showallDeny():
     i = 0
-    deny = ""
     len_all = len(list_all)
     while len_all == 0:
         tkinterLabel = Label(root)
@@ -159,7 +156,6 @@ def showallDeny():
 #Show all ingress connections            
 def showallIngress():
     i = 0
-    ingress = ""
     len_all = len(list_all)
     while len_all == 0:
         tkinterLabel = Label(root)
@@ -184,7 +180,6 @@ def showallIngress():
 #show all engress connections
 def showallEgress():
     i = 0
-    egress = ""
     len_all = len(list_all)
     while len_all == 0:
         tkinterLabel = Label(root)
@@ -194,7 +189,7 @@ def showallEgress():
     if len_all != 0:
         while i <= len_all:
             input = list_all[i]
-            egress = input.split()
+            egress = str.split(input)
             egress = str(egress)
             output = egress.find('out')
             if output != -1:
@@ -218,21 +213,15 @@ def showallWeb():
     if len_all != 0:
         while i <= len_all:
             input = list_all[i]
-            input = input.split()
+            input = str.split(input)
+            input = input[10:]
+            input = input[:-3]
             input = str(input)
-            output = input.find('in')
-            if output != -1:
-                port = str(input)
-                port = list("port")
-                port = port[11:]
-                #port = port[:-2]
-                port = str(port)
-                print(port)
-                #port = port.split('')
-                #port = port[1:]
-                #tkinterLabel = Label(root)
-                #tkinterLabel["text"] = port
-                #tkinterLabel.pack()
+            input = input.split( ':' )
+            input = input[1:]
+            print(input)
+            input = ''.join(filter(lambda x: x.isdigit(),input))
+            print(input)
             i += 1
             if i == len_all:
                 break
