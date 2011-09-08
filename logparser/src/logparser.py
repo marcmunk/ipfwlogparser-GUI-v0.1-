@@ -15,6 +15,8 @@ date = date.today()
 
 #lists
 list_all = []
+list_tcpports = []
+list_udpports = []
 
 #About functions
 def about():
