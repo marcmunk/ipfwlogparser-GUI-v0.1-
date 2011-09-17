@@ -12,7 +12,6 @@ from datetime import date
 root = Tk()
 tkinterLabel = Label(root)
 date = date.today()
-i = 0
 
 #lists
 list_all = []
@@ -41,6 +40,7 @@ def loadfile():
 #Analyse menu functions
 #Shows all entries in list_all 
 def showall():
+    i = 0
     len_all = len(list_all)
     errorloadfile()
     if i != len_all:
@@ -55,6 +55,7 @@ def showall():
 
 #Filters out TCP connections
 def showallTCP():
+    i = 0
     len_all = len(list_all)
     errorloadfile()
     if len_all != 0:
@@ -76,6 +77,7 @@ def showallTCP():
 
 #Filters out UDP connections
 def showallUDP():
+    i = 0
     len_all = len(list_all)
     errorloadfile()
     if len_all != 0:
@@ -95,6 +97,7 @@ def showallUDP():
             
 #Filters out Allowed connections
 def showallAllow():
+    i = 0
     len_all = len(list_all)
     errorloadfile()
     if len_all != 0:
@@ -114,6 +117,7 @@ def showallAllow():
 
 #Show all Denied connections
 def showallDeny():
+    i = 0
     len_all = len(list_all)
     errorloadfile()
     if len_all != 0:
@@ -133,6 +137,7 @@ def showallDeny():
 
 #Show all ingress connections            
 def showallIngress():
+    i = 0
     len_all = len(list_all)
     errorloadfile()
     if len_all != 0:
@@ -152,6 +157,7 @@ def showallIngress():
 
 #show all engress connections
 def showallEgress():
+    i = 0
     len_all = len(list_all)
     errorloadfile()
     if len_all != 0:
@@ -172,6 +178,7 @@ def showallEgress():
 #Export menu functions
 #Export Show all Lines
 def exportAll():
+    i = 0
     filename = filedialog.asksaveasfilename()
     len_all = len(list_all)
     while len_all != 0:
@@ -186,6 +193,7 @@ def exportAll():
 
 #Export all Allowed lines
 def exportAllow():
+    i = 0
     filename = filedialog.asksaveasfilename()
     len_all = len(list_all)
     while len_all == 0:
@@ -208,6 +216,7 @@ def exportAllow():
 
 #Export all denied lines
 def exportDeny():
+    i = 0
     filename = filedialog.asksaveasfilename()
     len_all = len(list_all)
     while len_all == 0:
@@ -230,6 +239,7 @@ def exportDeny():
             
 #export all Egress connections
 def exportEgress():
+    i = 0
     filename = filedialog.asksaveasfilename()
     egress = ""
     len_all = len(list_all)
@@ -254,6 +264,7 @@ def exportEgress():
 
 #export all Ingress connections
 def exportIngress():
+    i = 0
     filename = filedialog.asksaveasfilename()
     ingress = ""
     len_all = len(list_all)
@@ -288,6 +299,7 @@ def errorloadfile():
 
 #Find tcpport
 def tcpPORTS():
+    i = 0
     len_all = len(list_all)
     errorloadfile()
     if len_all != 0:
@@ -306,12 +318,14 @@ def tcpPORTS():
                 test = ''.join(filter(lambda x: x.isdigit(),test))
                 test = int(test)
                 list_tcpports.insert(i, test)
+                print(list_tcpports[i])
             i += 1
             if i == len_all:
                 break
 
 #Used for finding port numbers on incoming trafic
 def udpPORTS():
+    i = 0
     len_all = len(list_all)
     errorloadfile()
     if len_all != 0:
@@ -368,7 +382,7 @@ analysemenu.add_command(label="Show all Allowed connections", command=showallAll
 analysemenu.add_command(label="Show all Denied connections", command=showallDeny)
 analysemenu.add_command(label="Show all Ingress connections", command=showallIngress)
 analysemenu.add_command(label="Show all Egress connections", command=showallEgress)
-analysemenu.add_command(label="Test", command=test)
+analysemenu.add_command(label="Test", command=tcpPORTS)
 
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
