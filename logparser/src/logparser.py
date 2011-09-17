@@ -307,7 +307,7 @@ def tcpPORTS():
             incoming = list_all[i]
             port = incoming.split()
             port = str(port)
-            port = port.find('tcp')
+            port = port.find('TCP')
             if port != -1:
                 test = list_all[i]
                 test = test.split()
@@ -318,7 +318,7 @@ def tcpPORTS():
                 test = ''.join(filter(lambda x: x.isdigit(),test))
                 test = int(test)
                 list_tcpports.insert(i, test)
-                print(list_tcpports[i])
+                print(i, list_tcpports[i])
             i += 1
             if i == len_all:
                 break
