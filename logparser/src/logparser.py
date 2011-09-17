@@ -277,7 +277,7 @@ def exportIngress():
                 break
 
 #Script wide functions
-#Tells user to laod log file
+#Tells user to load log file
 def errorloadfile():
     len_all = len(list_all)
     while len_all == 0:
