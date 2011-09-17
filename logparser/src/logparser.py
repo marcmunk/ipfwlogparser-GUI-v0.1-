@@ -318,7 +318,7 @@ def tcpPORTS():
                 test = ''.join(filter(lambda x: x.isdigit(),test))
                 test = int(test)
                 list_tcpports.insert(i, test)
-                print(i, list_tcpports[i])
+                print(test)
             i += 1
             if i == len_all:
                 break
