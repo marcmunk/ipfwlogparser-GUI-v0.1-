@@ -18,6 +18,10 @@ list_all = []
 def about():
     tkinterLabel["text"] = "Written by Marc Munk - marc@pungloppen.dk"
     tkinterLabel.pack()
+    
+def version():
+    tkinterLabel["text"] = "Version 0.1"
+    tkinterLabel.pack()
 
 #File Menu functions
 #Loads log file to be worked with
@@ -29,7 +33,6 @@ def loadfile():
         list_all.insert(i, line)
         i += 1
     f.close
-    tkinterLabel = Label(root)
     tkinterLabel["text"] = "Number of lines loaded are", i
     tkinterLabel.pack() 
     
@@ -68,8 +71,6 @@ def showallTCP():
             i += 1
             if i == len_all:
                 break
-    
-            
 
 #Filters out UDP connections
 def showallUDP():
@@ -255,7 +256,7 @@ def showHTTPSTRAFIC():
             if i == len_all:
                 break
 
-#Show all mail trafic
+#Show all SMTP trafic
 def showSMTPTRAFIC():
     i = 0
     len_all = len(list_all)
@@ -310,6 +311,7 @@ def showFTPTRAFIC():
             i += 1
             if i == len_all:
                 break
+
 #Used for finding all UDP/53 trafic
 def allDNSTRAFIC():
     i = 0
@@ -431,11 +433,7 @@ def exportIngress():
     filename = filedialog.asksaveasfilename()
     ingress = ""
     len_all = len(list_all)
-    while len_all == 0:
-        tkinterLabel = Label(root)
-        tkinterLabel["text"] = "Please load log file"
-        tkinterLabel.pack()
-        break
+    errorloadfile()
     if len_all != 0:
         while i <= len_all:
             input = list_all[i]
@@ -450,12 +448,95 @@ def exportIngress():
             if i == len_all:
                 break
 
+#Export TCP/80 trafic
+def exportHTTPTRAFIC():
+    i = 0
+    filename = filedialog.asksaveasfilename()
+    len_all = len(list_all)
+    errorloadfile()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('TCP')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                if test == 80:
+                    output = list_all[i]
+                    f = open (filename, 'a')
+                    f.write (output)
+            i += 1
+            if i == len_all:
+                break
+            
+def exportSSHTRAFIC():
+    i = 0
+    filename = filedialog.asksaveasfilename()
+    len_all = len(list_all)
+    errorloadfile()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('TCP')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                if test == 22:
+                    output = list_all[i]
+                    f = open (filename, 'a')
+                    f.write (output)
+            i += 1
+            if i == len_all:
+                break
+
+def exportHTTPSTRAFIC():
+    i = 0
+    filename = filedialog.asksaveasfilename()
+    len_all = len(list_all)
+    errorloadfile()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('TCP')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                if test == 443:
+                    output = list_all[i]
+                    f = open (filename, 'a')
+                    f.write (output)
+            i += 1
+            if i == len_all:
+                break
 #Script wide functions
 #Tells user to load log file
 def errorloadfile():
     len_all = len(list_all)
     while len_all == 0:
-        tkinterLabel = Label(root)
         tkinterLabel["text"] = "Please load log file"
         tkinterLabel.pack()
         break 
@@ -489,6 +570,8 @@ filemenu.add_command(label="Exit", command=quit)
 
 analysemenu = Menu(menu)
 menu.add_cascade(label="Analyse", menu=analysemenu)
+analysemenu.add_command(label="Show all connections", command=showall)
+analysemenu.add_separator()
 analysemenu.add_command(label="Show all TCP connections", command=showallTCP)
 analysemenu.add_command(label="Show all UDP connections", command=showallUDP)
 analysemenu.add_separator()
@@ -512,10 +595,14 @@ exportemenu.add_command(label="Export all lines", command=exportAll)
 exportemenu.add_command(label="Export all Allowed lines", command=exportAllow)
 exportemenu.add_command(label="Export all Denied lines", command=exportDeny)
 exportemenu.add_command(label="Export all Egress lines", command=exportEgress)
-exportemenu.add_command(label="Export all Ingress lines", command=exportIngress)
+exportemenu.add_command(label="Export all Ingress lines", command=exportIngress) 
+exportemenu.add_command(label="Export all HTTP lines", command=exportHTTPTRAFIC)
+exportemenu.add_command(label="Export all HTTP lines", command=exportSSHTRAFIC)
+exportemenu.add_command(label="Export all HTTP lines", command=exportHTTPSTRAFIC)
 
 helpmenu = Menu(menu)
 menu.add_cascade(label="Help", menu=helpmenu)
 helpmenu.add_command(label="About", command=about)
+helpmenu.add_command(label="Version", command=version)
 
 mainloop()
