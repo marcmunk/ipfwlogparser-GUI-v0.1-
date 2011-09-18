@@ -298,7 +298,7 @@ def errorloadfile():
         break 
 
 #Find tcpport
-def tcpPORTS():
+def showWEBTRAFIC():
     i = 0
     len_all = len(list_all)
     errorloadfile()
@@ -318,7 +318,8 @@ def tcpPORTS():
                 test = ''.join(filter(lambda x: x.isdigit(),test))
                 test = int(test)
                 list_tcpports.insert(i, test)
-                print(test)
+                if test == 80:
+                    print(list_all[i])
             i += 1
             if i == len_all:
                 break
@@ -350,7 +351,7 @@ def udpPORTS():
 
 #Used for testing new functions without making a new menu entry
 def test():
-    print("Testing")
+    print("Testing menu entry for new functions")
 
 #GUI 
 #Window size and name
@@ -382,7 +383,8 @@ analysemenu.add_command(label="Show all Allowed connections", command=showallAll
 analysemenu.add_command(label="Show all Denied connections", command=showallDeny)
 analysemenu.add_command(label="Show all Ingress connections", command=showallIngress)
 analysemenu.add_command(label="Show all Egress connections", command=showallEgress)
-analysemenu.add_command(label="Test", command=tcpPORTS)
+analysemenu.add_command(label="Show all incoming web trafic", command=showWEBTRAFIC)
+analysemenu.add_command(label="Test", command=test)
 
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
