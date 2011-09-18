@@ -199,6 +199,34 @@ def showHTTPTRAFIC():
             if i == len_all:
                 break
 
+#Show all SSH trafic
+def showSSHTRAFIC():
+    i = 0
+    len_all = len(list_all)
+    errorloadfile()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('TCP')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                if test == 22:
+                    tkinterLabel = Label(root)
+                    tkinterLabel["text"] = list_all[i]
+                    tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
+
 #Find all trafic on TCP/80
 def showHTTPSTRAFIC():
     i = 0
@@ -227,6 +255,61 @@ def showHTTPSTRAFIC():
             if i == len_all:
                 break
 
+#Show all mail trafic
+def showSMTPTRAFIC():
+    i = 0
+    len_all = len(list_all)
+    errorloadfile()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('TCP')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                if test == 25:
+                    tkinterLabel = Label(root)
+                    tkinterLabel["text"] = list_all[i]
+                    tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
+
+#show all ftp trafic
+def showFTPTRAFIC():
+    i = 0
+    len_all = len(list_all)
+    errorloadfile()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('TCP')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                if test == 23:
+                    tkinterLabel = Label(root)
+                    tkinterLabel["text"] = list_all[i]
+                    tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
 #Used for finding all UDP/53 trafic
 def allDNSTRAFIC():
     i = 0
@@ -417,7 +500,10 @@ analysemenu.add_separator()
 analysemenu.add_command(label="Show all http trafic", command=showHTTPTRAFIC)
 analysemenu.add_command(label="Show all https trafic", command=showHTTPSTRAFIC)
 analysemenu.add_command(label="Show all DNS trafic", command=allDNSTRAFIC)
-analysemenu.add_separator()
+analysemenu.add_command(label="Show all SSH trafic", command=showSSHTRAFIC)
+analysemenu.add_command(label="Show all SMTP trafic", command=showSMTPTRAFIC)
+analysemenu.add_command(label="Show all FTP trafic", command=showFTPTRAFIC)
+analysemenu.add_separator()  
 analysemenu.add_command(label="Test", command=test) 
 
 exportemenu = Menu(menu)
