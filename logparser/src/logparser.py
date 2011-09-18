@@ -319,7 +319,9 @@ def showWEBTRAFIC():
                 test = int(test)
                 list_tcpports.insert(i, test)
                 if test == 80:
-                    print(list_all[i])
+                    tkinterLabel = Label(root)
+                    tkinterLabel["text"] = list_all[i]
+                    tkinterLabel.pack()
             i += 1
             if i == len_all:
                 break
