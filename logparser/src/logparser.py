@@ -6,17 +6,13 @@ Created on 18/03/2011
 from tkinter import filedialog
 from tkinter import *
 from tkinter import ttk
-#import smtplib
 from datetime import date
 
 root = Tk()
 tkinterLabel = Label(root)
-date = date.today()
 
 #lists
 list_all = []
-list_tcpports = []
-list_udpports = []
 
 #About functions
 def about():
@@ -176,7 +172,7 @@ def showallEgress():
                 break
 
 #Find all trafic on TCP/80
-def showWEBTRAFIC():
+def showHTTPTRAFIC():
     i = 0
     len_all = len(list_all)
     errorloadfile()
@@ -196,6 +192,34 @@ def showWEBTRAFIC():
                 test = ''.join(filter(lambda x: x.isdigit(),test))
                 test = int(test)
                 if test == 80:
+                    tkinterLabel = Label(root)
+                    tkinterLabel["text"] = list_all[i]
+                    tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
+
+#Find all trafic on TCP/80
+def showHTTPSTRAFIC():
+    i = 0
+    len_all = len(list_all)
+    errorloadfile()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('TCP')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                if test == 443:
                     tkinterLabel = Label(root)
                     tkinterLabel["text"] = list_all[i]
                     tkinterLabel.pack()
@@ -389,7 +413,9 @@ analysemenu.add_command(label="Show all Allowed connections", command=showallAll
 analysemenu.add_command(label="Show all Denied connections", command=showallDeny)
 analysemenu.add_command(label="Show all Ingress connections", command=showallIngress)
 analysemenu.add_command(label="Show all Egress connections", command=showallEgress)
-analysemenu.add_command(label="Show all incoming web trafic", command=showWEBTRAFIC)
+analysemenu.add_separator()
+analysemenu.add_command(label="Show all http trafic", command=showHTTPTRAFIC)
+analysemenu.add_command(label="Show all https trafic", command=showHTTPSTRAFIC)
 analysemenu.add_command(label="Show all DNS trafic", command=allDNSTRAFIC)
 analysemenu.add_separator()
 analysemenu.add_command(label="Test", command=test) 
