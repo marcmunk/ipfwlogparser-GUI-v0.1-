@@ -175,6 +175,62 @@ def showallEgress():
             if i == len_all:
                 break
 
+#Find all trafic on TCP/80
+def showWEBTRAFIC():
+    i = 0
+    len_all = len(list_all)
+    errorloadfile()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('TCP')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                if test == 80:
+                    tkinterLabel = Label(root)
+                    tkinterLabel["text"] = list_all[i]
+                    tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
+
+#Used for finding all UDP/53 trafic
+def allDNSTRAFIC():
+    i = 0
+    len_all = len(list_all)
+    errorloadfile()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('UDP')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                if test == 53:
+                    tkinterLabel = Label(root)
+                    tkinterLabel["text"] = list_all[i]
+                    tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
+
 #Export menu functions
 #Export Show all Lines
 def exportAll():
@@ -297,59 +353,7 @@ def errorloadfile():
         tkinterLabel.pack()
         break 
 
-#Find tcpport
-def showWEBTRAFIC():
-    i = 0
-    len_all = len(list_all)
-    errorloadfile()
-    if len_all != 0:
-        while i <= len_all:
-            incoming = list_all[i]
-            port = incoming.split()
-            port = str(port)
-            port = port.find('TCP')
-            if port != -1:
-                test = list_all[i]
-                test = test.split()
-                test = test[10]
-                test = str(test)
-                test = test.split( ':' )
-                test = test[1:]
-                test = ''.join(filter(lambda x: x.isdigit(),test))
-                test = int(test)
-                list_tcpports.insert(i, test)
-                if test == 80:
-                    tkinterLabel = Label(root)
-                    tkinterLabel["text"] = list_all[i]
-                    tkinterLabel.pack()
-            i += 1
-            if i == len_all:
-                break
 
-#Used for finding port numbers on incoming trafic
-def udpPORTS():
-    i = 0
-    len_all = len(list_all)
-    errorloadfile()
-    if len_all != 0:
-        while i <= len_all:
-            incoming = list_all[i]
-            port = incoming.split()
-            port = str(port)
-            port = port.find('udp')
-            if port != -1:
-                test = list_all[i]
-                test = test.split()
-                test = test[10]
-                test = str(test)
-                test = test.split( ':' )
-                test = test[1:]
-                test = ''.join(filter(lambda x: x.isdigit(),test))
-                test = int(test)
-                list_udpports.insert(i, test)
-            i += 1
-            if i == len_all:
-                break
 
 #Used for testing new functions without making a new menu entry
 def test():
@@ -386,7 +390,9 @@ analysemenu.add_command(label="Show all Denied connections", command=showallDeny
 analysemenu.add_command(label="Show all Ingress connections", command=showallIngress)
 analysemenu.add_command(label="Show all Egress connections", command=showallEgress)
 analysemenu.add_command(label="Show all incoming web trafic", command=showWEBTRAFIC)
-analysemenu.add_command(label="Test", command=test)
+analysemenu.add_command(label="Show all DNS trafic", command=allDNSTRAFIC)
+analysemenu.add_separator()
+analysemenu.add_command(label="Test", command=test) 
 
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
