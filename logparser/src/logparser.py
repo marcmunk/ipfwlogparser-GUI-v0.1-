@@ -13,15 +13,21 @@ tkinterLabel = Label(root)
 
 #lists
 list_all = []
-
+licens = []
 #About functions
+#About function
 def about():
     tkinterLabel["text"] = "Written by Marc Munk - marc@pungloppen.dk"
     tkinterLabel.pack()
-    
+
+#Version number     
 def version():
     tkinterLabel["text"] = "Version 0.1"
     tkinterLabel.pack()
+#Licens function
+def licens():
+        tkinterLabel["text"] = "This script is licensed under the beerware licens."
+        tkinterLabel.pack()
 
 #File Menu functions
 #Loads log file to be worked with
@@ -690,6 +696,7 @@ exportemenu.add_command(label="Export all SMTP lines", command= exportSMTPTRAFIC
 helpmenu = Menu(menu)
 menu.add_cascade(label="Help", menu=helpmenu)
 helpmenu.add_command(label="About", command=about)
-helpmenu.add_command(label="Version", command=version)
+helpmenu.add_command(label="Version", command=version) 
+helpmenu.add_command(label="Licens", command=licens)
 
 mainloop()
