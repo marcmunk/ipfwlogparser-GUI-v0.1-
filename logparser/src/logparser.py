@@ -631,12 +631,6 @@ def errorloadfile():
         tkinterLabel.pack()
         break 
 
-
-
-#Used for testing new functions without making a new menu entry
-def test():
-    print("Testing menu entry for new functions")
-
 #GUI 
 #Window size and name
 class App(Frame):
@@ -677,7 +671,6 @@ analysemenu.add_command(label="Show all SSH trafic", command=showSSHTRAFIC)
 analysemenu.add_command(label="Show all SMTP trafic", command=showSMTPTRAFIC)
 analysemenu.add_command(label="Show all FTP trafic", command=showFTPTRAFIC)
 analysemenu.add_separator()  
-analysemenu.add_command(label="Test", command=test) 
 
 exportemenu = Menu(menu)
 menu.add_cascade(label="Export", menu=exportemenu)
