@@ -532,6 +532,90 @@ def exportHTTPSTRAFIC():
             i += 1
             if i == len_all:
                 break
+
+#Export SMTP trafic
+def exportSMTPTRAFIC():
+    i = 0
+    len_all = len(list_all)
+    filename = filedialog.asksaveasfilename()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('TCP')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                if test == 25:
+                    output = list_all[i]
+                    f = open (filename, 'a')
+                    f.write (output)
+            i += 1
+            if i == len_all:
+                break
+
+def exportFTPTRAFIC():
+    i = 0
+    len_all = len(list_all)
+    filename = filedialog.asksaveasfilename()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('TCP')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                if test == 23:
+                    output = list_all[i]
+                    f = open (filename, 'a')
+                    f.write (output)
+            i += 1
+            if i == len_all:
+                break
+
+#Used for finding all UDP/53 trafic
+def exportallDNSTRAFIC():
+    i = 0
+    len_all = len(list_all)
+    filename = filedialog.asksaveasfilename()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('UDP')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                if test == 53:
+                    output = list_all[i]
+                    f = open (filename, 'a')
+                    f.write (output)
+            i += 1
+            if i == len_all:
+                break
+
 #Script wide functions
 #Tells user to load log file
 def errorloadfile():
@@ -597,8 +681,11 @@ exportemenu.add_command(label="Export all Denied lines", command=exportDeny)
 exportemenu.add_command(label="Export all Egress lines", command=exportEgress)
 exportemenu.add_command(label="Export all Ingress lines", command=exportIngress) 
 exportemenu.add_command(label="Export all HTTP lines", command=exportHTTPTRAFIC)
-exportemenu.add_command(label="Export all HTTP lines", command=exportSSHTRAFIC)
-exportemenu.add_command(label="Export all HTTP lines", command=exportHTTPSTRAFIC)
+exportemenu.add_command(label="Export all SSH lines", command=exportSSHTRAFIC)
+exportemenu.add_command(label="Export all HTTPS lines", command=exportHTTPSTRAFIC)
+exportemenu.add_command(label="Export all DNS lines", command=exportallDNSTRAFIC)
+exportemenu.add_command(label="Export all FTP lines", command= exportFTPTRAFIC)
+exportemenu.add_command(label="Export all SMTP lines", command= exportSMTPTRAFIC)
 
 helpmenu = Menu(menu)
 menu.add_cascade(label="Help", menu=helpmenu)
