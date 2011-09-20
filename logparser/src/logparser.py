@@ -14,7 +14,8 @@ tkinterLabel = Label(root)
 #lists
 list_all = []
 licens = []
-#About functions
+
+#Help functions
 #About function
 def about():
     tkinterLabel["text"] = "Written by Marc Munk - marc@pungloppen.dk"
@@ -352,6 +353,8 @@ def exportAll():
     i = 0
     filename = filedialog.asksaveasfilename()
     len_all = len(list_all)
+    while len_all == 0:
+        errorloadfile()
     while len_all != 0:
         f = open (filename, 'a')
         output = list_all[i]
@@ -368,9 +371,7 @@ def exportAllow():
     filename = filedialog.asksaveasfilename()
     len_all = len(list_all)
     while len_all == 0:
-        tkinterLabel["text"] = "please open log file"
-        tkinterLabel.pack()
-        break
+        errorloadfile()
     if len_all != 0:
         while i <= len_all:
             input = list_all[i]
@@ -391,9 +392,7 @@ def exportDeny():
     filename = filedialog.asksaveasfilename()
     len_all = len(list_all)
     while len_all == 0:
-        tkinterLabel["text"] = "please open log file"
-        tkinterLabel.pack()
-        break
+        errorloadfile()
     if len_all != 0:
         while i <= len_all:
             input = list_all[i]
@@ -415,10 +414,7 @@ def exportEgress():
     egress = ""
     len_all = len(list_all)
     while len_all == 0:
-        tkinterLabel = Label(root)
-        tkinterLabel["text"] = "Please load log file"
-        tkinterLabel.pack()
-        break
+        errorloadfile()
     if len_all != 0:
         while i <= len_all:
             input = list_all[i]
