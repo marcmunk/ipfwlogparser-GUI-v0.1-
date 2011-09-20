@@ -618,7 +618,7 @@ def exportallDNSTRAFIC():
             if i == len_all:
                 break
 
-#Script wide functions
+#Scriptwide functions
 #Tells user to load log file
 def errorloadfile():
     len_all = len(list_all)
