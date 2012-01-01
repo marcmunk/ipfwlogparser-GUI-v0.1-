@@ -13,7 +13,7 @@ tkinterLabel = Label(root)
 
 #lists
 list_all = []
-licens = []
+list_denied = []
 
 #Help functions
 #About function
@@ -25,6 +25,7 @@ def about():
 def version():
     tkinterLabel["text"] = "Version 0.1"
     tkinterLabel.pack()
+    
 #Licens function
 def licens():
         tkinterLabel["text"] = "This script is licensed under the beerware licens."
@@ -85,7 +86,7 @@ def showallUDP():
     len_all = len(list_all)
     errorloadfile()
     if len_all != 0:
-        while i <= len_all:
+        while len_all <= i:
             input = list_all[i]
             proto = input.split()
             proto = str(proto)
@@ -346,7 +347,32 @@ def allDNSTRAFIC():
             i += 1
             if i == len_all:
                 break
-
+            
+def showblockedipadresses():       
+    i = 0
+    len_all = len(list_all)
+    errorloadfile()
+    if len_all != 0:
+        while i <= len_all:
+            incoming = list_all[i]
+            port = incoming.split()
+            port = str(port)
+            port = port.find('Deny')
+            if port != -1:
+                test = list_all[i]
+                test = test.split()
+                test = test[10]
+                test = str(test)
+                test = test.split( ':' )
+                test = test[1:]
+                test = ''.join(filter(lambda x: x.isdigit(),test))
+                test = int(test)
+                tkinterLabel = Label(root)
+                tkinterLabel["text"] = test
+                tkinterLabel.pack()
+            i += 1
+            if i == len_all:
+                break
 #Export menu functions
 #Export Show all Lines
 def exportAll():
@@ -636,6 +662,7 @@ class App(Frame):
 myapp = App()
 myapp.master.title("Logparser")
 myapp.master.maxsize(1400, 800)
+loadfile()
 
 #Gui menu 
 menu = Menu(root)
@@ -666,6 +693,7 @@ analysemenu.add_command(label="Show all DNS trafic", command=allDNSTRAFIC)
 analysemenu.add_command(label="Show all SSH trafic", command=showSSHTRAFIC)
 analysemenu.add_command(label="Show all SMTP trafic", command=showSMTPTRAFIC)
 analysemenu.add_command(label="Show all FTP trafic", command=showFTPTRAFIC)
+analysemenu.add_command(label="Show all FTP trafic", command=showblockedipadresses)
 analysemenu.add_separator()  
 
 exportemenu = Menu(menu)
